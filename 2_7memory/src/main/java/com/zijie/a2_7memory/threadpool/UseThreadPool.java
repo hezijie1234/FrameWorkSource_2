@@ -1,6 +1,8 @@
 package com.zijie.a2_7memory.threadpool;
 
-import cn.enjoyedu.concurrent.tools.SleepTools;
+
+
+import com.zijie.a2_7memory.tools.SleepTools;
 
 import java.util.Random;
 import java.util.concurrent.*;
