@@ -17,7 +17,7 @@ public class OutputStreamWriterTest {
 	}
 	
 	public static void testOutputStreamWriter() throws IOException {
-		File file = new File("src/testtxt/OutputStreamWriter.txt");
+		File file = new File("E:/vvNewFile/FrameWorkSource_2/app/src/main/java/com/zijie/frameworksource_2/iodemo/mytest/OutputStreamWriter.txt");
 		
 		// true, �������ݿ���׷��
 		FileOutputStream fos = new FileOutputStream(file, true);
