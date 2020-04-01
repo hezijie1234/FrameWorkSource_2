@@ -1,1 +1,1 @@
-include ':app', ':2_7memory', ':2_9rxjavademo'
+include ':app', ':2_7memory', ':2_9rxjavademo', ':mylibrary'
