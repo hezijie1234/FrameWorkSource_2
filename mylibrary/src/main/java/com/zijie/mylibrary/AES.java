@@ -1,9 +1,7 @@
-package com.zijie.frameworksource_2.shell_add;
+package com.zijie.mylibrary;
 
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -43,51 +41,6 @@ public class AES {
         }
     }
 
-    /**
-     *
-     * @param srcAPKfile  源文件所在位置
-     * @param dstApkFile  目标文件
-     * @return             加密后的新dex 文件
-     * @throws Exception
-     */
-    public static File encryptAPKFile(File srcAPKfile, File dstApkFile) throws Exception {
-        if (srcAPKfile == null) {
-            System.out.println("encryptAPKFile :srcAPKfile null");
-            return null;
-        }
-//        File disFile = new File(srcAPKfile.getAbsolutePath() + "unzip");
-//		Zip.unZip(srcAPKfile, disFile);
-        Zip.unZip(srcAPKfile, dstApkFile);
-        //获得所有的dex （需要处理分包情况）
-        File[] dexFiles = dstApkFile.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                return s.endsWith(".dex");
-            }
-        });
-
-        File mainDexFile = null;
-        byte[] mainDexData = null;
-
-        for (File dexFile: dexFiles) {
-            //读数据
-            byte[] buffer = Utils.getBytes(dexFile);
-            //加密
-            byte[] encryptBytes = AES.encrypt(buffer);
-            //这段代码好像没什么用处
-            if (dexFile.getName().endsWith("classes.dex")) {
-                mainDexData = encryptBytes;
-                mainDexFile = dexFile;
-            }
-            //写数据  替换原来的数据
-            FileOutputStream fos = new FileOutputStream(dexFile);
-            fos.write(encryptBytes);
-            fos.flush();
-            fos.close();
-        }
-        return mainDexFile;
-    }
-
     public static byte[] encrypt(byte[] content) {
         try {
             byte[] result = encryptCipher.doFinal(content);
@@ -114,30 +67,8 @@ public class AES {
 
 
     public static void main(String[] args) throws Exception {
-//        byte[] newfs = Utils.int2Bytes(2312312);
-//        byte[] refs = new byte[4];
-//        //楂樹綅鍦ㄥ墠锛屼綆浣嶅湪鍓嶆帀涓釜
-//        for (int i = 0; i < 4; i++) {
-//            refs[i] = newfs[newfs.length - 1 - i];
-//        }
-//        System.out.println(Arrays.toString(newfs));
-//        System.out.println(Arrays.toString(refs));
-//
-//        ByteBuf byteBuf = Unpooled.buffer();
-//
-//        byteBuf.writeInt(2312312);
-//        byte[] a = new byte[4];
-//        byteBuf.order(ByteOrder.LITTLE_ENDIAN);
-//        byteBuf.readBytes(a);
-//        System.out.println(Arrays.toString(a));
 
-//        AES.init(AES.DEFAULT_PWD);
-//        String msg = Base64.encode(AES.encrypt(new byte[]{1, 2, 3, 4, 5}));
-//        System.out.println(msg);
-//        byte[] aes = AES.decrypt(Base64.decode(msg));
-//        System.out.println(Arrays.toString(aes));
-
-        File zip = new File("/Users/xiang/develop/source.apk");
+        File zip = new File("/Users/xiang/develop/app-debug.apk");
         String absolutePath = zip.getAbsolutePath();
         File dir = new File(absolutePath.substring(0, absolutePath.lastIndexOf(".")));
         Zip.unZip(zip,dir);

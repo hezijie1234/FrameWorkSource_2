@@ -42,7 +42,8 @@ public class Dx {
         Runtime runtime = Runtime.getRuntime();
         Process process = runtime.exec("cmd.exe /C dx --dex --output=" + aarDex.getAbsolutePath() + " " +
                 classes_jar.getAbsolutePath());
-
+        System.out.println(aarDex.getAbsolutePath());
+        System.out.println(classes_jar.getAbsolutePath());
         try {
             process.waitFor();
         } catch (InterruptedException e) {

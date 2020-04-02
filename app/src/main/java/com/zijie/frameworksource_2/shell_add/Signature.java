@@ -13,7 +13,7 @@ public class Signature {
     public static void signature(File unsignedApk, File signedApk) throws InterruptedException, IOException {
         String cmd[] = {"cmd.exe", "/C ","jarsigner",  "-sigalg", "MD5withRSA",
                 "-digestalg", "SHA1",
-                "-keystore", "C:/Users/allen/.android/debug.keystore",
+                "-keystore", "E:/享学文件/②java语言进阶/2019.5.16第十七节课（Java IO 实战——AES加密让你的APK牢不可破）/myapp.keystore",
                 "-storepass", "android",
                 "-keypass", "android",
                 "-signedjar", signedApk.getAbsolutePath(),

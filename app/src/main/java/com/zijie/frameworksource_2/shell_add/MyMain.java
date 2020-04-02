@@ -1,21 +1,26 @@
 package com.zijie.frameworksource_2.shell_add;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.InputStream;
 
 
 public class MyMain {
-
+	public static final String path = "E:/";
 	public static void main(String[] args) throws Exception {
+		myTest();
+	}
+	public static void myTest()throws Exception{
 
 		byte[] mainDexData; //存储源apk中的源dex文件
 		byte[] aarData;     // 存储壳中的壳dex文件
 		byte[] mergeDex;    // 存储壳dex 和源dex 的合并的新dex文件
 
 
-		File tempFileApk = new File("source/apk/temp");
+		File tempFileApk = new File(path + "source/temp");
 		if (tempFileApk.exists()) {
 			File[]files = tempFileApk.listFiles();
 			for(File file: files){
@@ -25,7 +30,7 @@ public class MyMain {
 			}
 		}
 
-		File tempFileAar = new File("source/aar/temp");
+		File tempFileAar = new File(path + "shell/temp");
 		if (tempFileAar.exists()) {
 			File[]files = tempFileAar.listFiles();
 			for(File file: files){
@@ -41,7 +46,7 @@ public class MyMain {
 		 */
 		AES.init(AES.DEFAULT_PWD);
 		//解压apk
-		File apkFile = new File("source/apk/app-debug.apk");
+		File apkFile = new File(path + "source/app-debug.apk");
 		File newApkFile = new File(apkFile.getParent() + File.separator + "temp");
 		if(!newApkFile.exists()) {
 			newApkFile.mkdirs();
@@ -67,7 +72,7 @@ public class MyMain {
 		/**
 		 * 第二步 处理aar 获得壳dex
 		 */
-		File aarFile = new File("source/aar/mylibrary-debug.aar");
+		File aarFile = new File(path + "shell/mylibrary-debug.aar");
 		File aarDex  = Dx.jar2Dex(aarFile);
 //        aarData = Utils.getBytes(aarDex);   //将dex文件读到byte 数组
 
@@ -87,12 +92,12 @@ public class MyMain {
 		/**
 		 * 第3步 打包签名
 		 */
-		File unsignedApk = new File("result/apk-unsigned.apk");
+		File unsignedApk = new File(path + "result/apk-unsigned.apk");
 		unsignedApk.getParentFile().mkdirs();
 //        File disFile = new File(apkFile.getAbsolutePath() + File.separator+ "temp");
 		Zip.zip(newApkFile, unsignedApk);
 		//不用插件就不能自动使用原apk的签名...
-		File signedApk = new File("result/apk-signed.apk");
+		File signedApk = new File(path + "result/apk-signed.apk");
 		Signature.signature(unsignedApk, signedApk);
 	}
 
