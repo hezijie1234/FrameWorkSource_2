@@ -11,14 +11,17 @@ import java.io.InputStream;
 
 public class Signature {
     public static void signature(File unsignedApk, File signedApk) throws InterruptedException, IOException {
+        System.out.println(unsignedApk.getAbsolutePath());
+        System.out.println(signedApk.getAbsolutePath());
         String cmd[] = {"cmd.exe", "/C ","jarsigner",  "-sigalg", "MD5withRSA",
                 "-digestalg", "SHA1",
-                "-keystore", "E:/享学文件/②java语言进阶/2019.5.16第十七节课（Java IO 实战——AES加密让你的APK牢不可破）/myapp.keystore",
-                "-storepass", "android",
-                "-keypass", "android",
+                "-keystore", "E:/newmyapp.jks",//请注意是jks还是keystroe文件。
                 "-signedjar", signedApk.getAbsolutePath(),
                 unsignedApk.getAbsolutePath(),
-                "androiddebugkey"};
+                "android",
+                "-storepass", "android",
+                "-keypass", "android"
+                };
         Process process = Runtime.getRuntime().exec(cmd);
         System.out.println("start sign");
 //        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
