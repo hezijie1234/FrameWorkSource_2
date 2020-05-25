@@ -21,19 +21,24 @@ public class SynTest {
 	//count进行累加
 	public void incCount(){
 		synchronized (obj){
-			count++;
+			count = count +1;
 		}
 	}
 
 	public synchronized void incCount2(){
-			count++;
+		count = count +1;
 	}
 
 	//count进行累加
 	public void incCount3(){
 		synchronized (this){
-			count++;
+			count = count +1;
 		}
+	}
+
+
+	public void incCount4(){
+		count = count +1;
 	}
 
 	//线程
@@ -47,8 +52,8 @@ public class SynTest {
 
 		@Override
 		public void run() {
-			for(int i=0;i<10000;i++){
-				simplOper.incCount();//count = count+10000
+			for(int i=0;i<100000;i++){
+				simplOper.incCount3();//count = count+10000
 			}
 		}
 	}

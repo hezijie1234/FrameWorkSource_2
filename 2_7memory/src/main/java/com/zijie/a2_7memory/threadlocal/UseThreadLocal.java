@@ -6,7 +6,10 @@ package com.zijie.a2_7memory.threadlocal;
  *类说明：演示ThreadLocal的使用
  */
 public class UseThreadLocal {
-	
+
+    /**
+     * 线程本地变量，避免不同线程修改值后互相影响
+     */
 	static ThreadLocal<Integer> threadLocal = new ThreadLocal<Integer>(){
         @Override
         protected Integer initialValue() {
